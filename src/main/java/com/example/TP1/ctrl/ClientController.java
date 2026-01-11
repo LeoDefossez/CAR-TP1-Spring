@@ -57,7 +57,7 @@ public class ClientController {
         Client sessionClient = (Client) session.getAttribute("loggedClient");
 
         if( sessionClient == null){
-            return new ModelAndView("home");
+            return new ModelAndView("error",Map.of("error","Impossible access, your are not logged in"));
         }
 
         Client freshClient = this.clientService.getClientByEmail(sessionClient.getEmail());

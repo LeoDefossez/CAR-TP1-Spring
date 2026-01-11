@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/store")
@@ -34,16 +35,33 @@ public class CommandeController {
     }
 
     @GetMapping("orders/{id}")
-    public ModelAndView order(@PathVariable("id") long id){
+    public ModelAndView order(@PathVariable("id") long id, HttpSession session){
         Commande commande = commandeService.getCommandeById(id);
+
+        if(this.isInvalidAccess(session,commande)){
+            return this.invalidAccess();
+        }
 
         return new ModelAndView("commande", Map.of("commande",commande));
     }
 
     @GetMapping("orders/{id}/print")
-    public ModelAndView printOrder(@PathVariable("id") long id){
+    public ModelAndView printOrder(@PathVariable("id") long id, HttpSession session){
         Commande commande = commandeService.getCommandeById(id);
 
+        if(this.isInvalidAccess(session,commande)){
+           return this.invalidAccess();
+        }
+
         return new ModelAndView("printCommande", Map.of("commande",commande));
+    }
+
+    private boolean isInvalidAccess(HttpSession session, Commande commande){
+        Client client = (Client) session.getAttribute("loggedClient");
+        return client == null || commande == null || !Objects.equals(client.getEmail(), commande.getClient().getEmail());
+    }
+
+    private ModelAndView invalidAccess(){
+        return new ModelAndView("error",Map.of("error","Impossible access, this order is not yours"));
     }
 }
