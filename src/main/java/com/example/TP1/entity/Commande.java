@@ -2,6 +2,8 @@ package com.example.TP1.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Commande {
 
@@ -13,6 +15,9 @@ public class Commande {
 
     @ManyToOne
     private Client client;
+
+    @OneToMany(mappedBy = "commande", fetch = FetchType.EAGER)
+    private List<CommandeLigne> lines;
 
 
     public Commande() {
@@ -45,5 +50,13 @@ public class Commande {
 
     public Client getClient() {
         return client;
+    }
+
+    public List<CommandeLigne> getLines() {
+        return lines;
+    }
+
+    public void setLines(List<CommandeLigne> lines) {
+        this.lines = lines;
     }
 }

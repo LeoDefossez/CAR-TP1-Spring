@@ -6,12 +6,12 @@
 <h1>Orders</h1>
 <ul>
     <li th:each="commande : ${client.commandes}">
-        <span th:text="${commande.name}"></span>
+        <a th:text="${commande.name}" th:href="@{/store/orders/{id}(id=${commande.id})}" ></a>
     </li>
 </ul>
 
 <h1>New Order</h1>
-<form action="/store/newOrder"
+<form action="/store/orders/newOrder"
       method="POST">
     <div>Order name : <input type="text" name="name"></div>
     <div><input type="SUBMIT"></div>

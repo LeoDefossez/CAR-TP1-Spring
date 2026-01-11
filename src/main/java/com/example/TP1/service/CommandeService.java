@@ -16,8 +16,14 @@ public class CommandeService {
         this.commandeRepository = commandeRepository;
     }
 
-    public void createCommande(Client client, String name){
+    public void createCommande(Client client, String name) {
         Commande commande = new Commande(name, client);
         commandeRepository.save(commande);
     }
+
+    public Commande getCommandeById(long id) {
+        return commandeRepository.findById(id).orElse(null);
+    }
+
+
 }
