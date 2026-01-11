@@ -18,7 +18,7 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
-    public void createClient(String email, String password, String name, String firstname) {
+    public void registerClient(String email, String password, String name, String firstname) {
         Client client = new Client(email, password, name, firstname);
         clientRepository.save(client);
     }
