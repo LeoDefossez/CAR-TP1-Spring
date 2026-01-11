@@ -1,9 +1,11 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 <h1>Hello <span th:text="${commande.client.firstname}"/> ! </h1>
-<a th:href="@{/store/logout}">logout</a>
+<a th:href="@{/store/clienthome}">All orders</a>
 
 <h1>Order <span th:text="${commande.name}"></span></h1>
+
+<a th:href="@{/store/orders/{OrderId}/print(OrderId=${commande.id})}">print</a>
 
 <h2>lines</h2>
 <ul>

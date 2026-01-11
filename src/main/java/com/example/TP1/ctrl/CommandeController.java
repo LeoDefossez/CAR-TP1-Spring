@@ -39,4 +39,11 @@ public class CommandeController {
 
         return new ModelAndView("commande", Map.of("commande",commande));
     }
+
+    @GetMapping("orders/{id}/print")
+    public ModelAndView printOrder(@PathVariable("id") long id){
+        Commande commande = commandeService.getCommandeById(id);
+
+        return new ModelAndView("printCommande", Map.of("commande",commande));
+    }
 }

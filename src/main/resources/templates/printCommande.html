@@ -1,0 +1,17 @@
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<h1>Hello <span th:text="${commande.client.firstname}"/> ! </h1>
+<a th:href="@{/store/orders/{OrderId}(OrderId=${commande.id})}">Back</a>
+
+<h1> Order <span th:text="${commande.name}"></span></h1>
+<table border="1">
+    <tr><th>Name</th><th>Quantity</th><th>Cost</th></tr>
+    <tr th:each="line : ${commande.lines}">
+        <td th:text="${line.libelle}" />
+        <td th:text="${line.quantity}" />
+        <td th:text="${line.cost}" />
+    </tr>
+</table>
+
+</body>
+</html>
