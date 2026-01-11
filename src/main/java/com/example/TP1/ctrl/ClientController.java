@@ -54,8 +54,15 @@ public class ClientController {
 
     @GetMapping("/clienthome")
     public ModelAndView clienthome(HttpSession session){
-        Client client = (Client) session.getAttribute("loggedClient");
-        return new ModelAndView("clienthome", Map.of("client",client));
+        Client sessionClient = (Client) session.getAttribute("loggedClient");
+
+        if( sessionClient == null){
+            return new ModelAndView("home");
+        }
+
+        Client freshClient = this.clientService.getClientByEmail(sessionClient.getEmail());
+
+        return new ModelAndView("clienthome", Map.of("client",freshClient));
     }
 
     @PostMapping("/registerClient")

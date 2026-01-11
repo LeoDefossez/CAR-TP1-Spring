@@ -40,4 +40,8 @@ public class ClientService {
 
         return client;
     }
+
+    public Client getClientByEmail(String email) {
+        return clientRepository.findById(email).orElse(null);
+    }
 }

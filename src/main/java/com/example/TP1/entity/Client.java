@@ -1,7 +1,11 @@
 package com.example.TP1.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+import java.util.List;
 
 @Entity
 public class Client {
@@ -15,6 +19,9 @@ public class Client {
     private String name;
 
     private String firstname;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Commande> commandes;
 
     public Client(String email, String password, String name, String firstname) {
         this.email = email;
@@ -57,4 +64,7 @@ public class Client {
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
+
+    public List<Commande> getCommandes() { return commandes; }
+    public void setCommandes(List<Commande> commandes) { this.commandes = commandes; }
 }

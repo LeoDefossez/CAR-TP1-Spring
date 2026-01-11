@@ -1,7 +1,21 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
-<h1>Hello <span th:text="${client.firstname}"/></span></h1>
+<h1>Hello <span th:text="${client.firstname}"/> ! </span></h1>
 <a th:href="@{/store/logout}">logout</a>
+
+<h1>Orders</h1>
+<ul>
+    <li th:each="commande : ${client.commandes}">
+        <span th:text="${commande.name}"></span>
+    </li>
+</ul>
+
+<h1>New Order</h1>
+<form action="/store/newOrder"
+      method="POST">
+    <div>Order name : <input type="text" name="name"></div>
+    <div><input type="SUBMIT"></div>
+</form>
 
 </body>
 </html>
